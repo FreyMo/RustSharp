@@ -1,0 +1,11 @@
+[package]
+name = "sample-lib"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "samplelib"
+crate-type = ["cdylib"]
+bench = false
+
+[dependencies]

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ContentWithTargetPath Include="../sample-lib/target/aarch64-apple-darwin/$(Configuration.ToLower())/libsamplelib.dylib">
+            <Link>lib/libsamplelib.dylib</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackageCopyToOutput>true</PackageCopyToOutput>
+            <TargetPath>libsamplelib.dylib</TargetPath>
+<!--            <PackagePath>runtimes/osx-arm64;lib/osx-arm64</PackagePath>-->
+        </ContentWithTargetPath>
+    </ItemGroup>
+
+<!--    <ItemGroup>-->
+<!--        <ContentWithTargetPath Include="../rust-lib/target/x86_64-pc-windows-gnu/$(Configuration.ToLower())/rustlib.dll">-->
+<!--            <Link>lib/rustlib.dll</Link>-->
+<!--            <CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
+<!--            <Pack>true</Pack>-->
+<!--            <PackageCopyToOutput>true</PackageCopyToOutput>-->
+<!--    <TargetPath>librustlib.dylib</TargetPath>-->
+<!--&lt;!&ndash;            <PackagePath>runtimes/win10-x64;runtimes/win10-x86;lib/win10-x64;lib/win10-x86</PackagePath>&ndash;&gt;-->
+<!--        </Content>-->
+<!--    </ItemGroup>-->
+    
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="../sample-lib/build.sh $(Configuration)" WorkingDirectory="../sample-lib" />
+    </Target>
+    
+</Project>
