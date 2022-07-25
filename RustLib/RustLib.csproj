@@ -11,7 +11,7 @@
     <ItemGroup>
         <ContentWithTargetPath Include="../sample-lib/target/aarch64-apple-darwin/$(Configuration.ToLower())/libsamplelib.dylib">
             <Link>lib/libsamplelib.dylib</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory Condition=" '$(OS)' == 'UNIX'">Always</CopyToOutputDirectory>
             <Pack>true</Pack>
             <PackageCopyToOutput>true</PackageCopyToOutput>
             <TargetPath>libsamplelib.dylib</TargetPath>
@@ -19,16 +19,16 @@
         </ContentWithTargetPath>
     </ItemGroup>
 
-<!--    <ItemGroup>-->
-<!--        <ContentWithTargetPath Include="../rust-lib/target/x86_64-pc-windows-gnu/$(Configuration.ToLower())/rustlib.dll">-->
-<!--            <Link>lib/rustlib.dll</Link>-->
-<!--            <CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
-<!--            <Pack>true</Pack>-->
-<!--            <PackageCopyToOutput>true</PackageCopyToOutput>-->
-<!--    <TargetPath>librustlib.dylib</TargetPath>-->
-<!--&lt;!&ndash;            <PackagePath>runtimes/win10-x64;runtimes/win10-x86;lib/win10-x64;lib/win10-x86</PackagePath>&ndash;&gt;-->
-<!--        </Content>-->
-<!--    </ItemGroup>-->
+    <ItemGroup>
+        <ContentWithTargetPath Include="../sample-lib/target/x86_64-pc-windows-gnu/$(Configuration.ToLower())/samplelib.dll">
+            <Link>lib/samplelib.dll</Link>
+            <CopyToOutputDirectory Condition=" '$(OS)' == 'WINDOWS_NT'">Always</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackageCopyToOutput>true</PackageCopyToOutput>
+            <TargetPath>samplelib.dll</TargetPath>
+<!--            <PackagePath>runtimes/win10-x64;runtimes/win10-x86;lib/win10-x64;lib/win10-x86</PackagePath>-->
+        </ContentWithTargetPath>
+    </ItemGroup>
     
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="../sample-lib/build.sh $(Configuration)" WorkingDirectory="../sample-lib" />
